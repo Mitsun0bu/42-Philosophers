@@ -6,7 +6,7 @@
 #    By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 10:06:02 by llethuil          #+#    #+#              #
-#    Updated: 2022/03/29 19:32:56 by llethuil         ###   ########lyon.fr    #
+#    Updated: 2022/03/30 18:41:52 by llethuil         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,9 +37,12 @@ NAME		:=	philo
 
 INCS		:=	philo.h	\
 
-SRCS		:=	check_args_utils.c	\
-				check_args.c		\
-				main.c				\
+SRCS		:=	check_args.c				\
+				clean_data_after_dinner.c	\
+				init_data_before_dinner.c	\
+				main.c						\
+				philo_dinner.c				\
+				utils.c						\
 
 OBJS_LST		:=	$(SRCS:.c=.o)
 
@@ -49,7 +52,13 @@ OBJS		:= $(addprefix $(OBJS_DIR)/, $(OBJS_LST))
 
 CC			:=	gcc
 
-CFLAGS		:=	-Wall -Wextra -Werror -I $(INCS) -pthread #-g -fsanitize=thread
+CFLAGS		:=	-Wall -Wextra -Werror -I $(INCS) -pthread
+
+#	To use valgrind --leak-check=full
+#	add the flag :	-ggdb3
+
+#	To check for data race
+#	add the flags :	-g -fsanitize=thread
 
 RM			:=	rm -f
 
