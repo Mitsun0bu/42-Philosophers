@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 19:16:08 by llethuil          #+#    #+#             */
-/*   Updated: 2022/03/30 18:42:23 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/03/31 14:38:13 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,12 @@ int	main(int ac, char **av)
 	t_data	data;
 
 	ft_memset(&data, 0, sizeof(data));
-	if (init_data_before_dinner(ac, av, &data) == FAILED)
+	if (prepare_philos_for_dinner(ac, av, &data) == FAILED)
 		return (FAILED);
-	philo_dinner(&data);
-	clean_data_after_dinner(&data);
+	philos_dinner(&data);
+	clean_after_dinner(&data);
 	return (0);
 }
-
-	// pthread_mutex_init(&args->am_i_alive, NULL);
-	// args->start_time = get_ts();
-	// args->death_event = 0;
 
 	// printf("========== TEST GET_ARGS ==========\n");
 	// printf("n_philo = %d\n", data.n_philo);

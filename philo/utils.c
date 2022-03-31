@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 15:12:19 by llethuil          #+#    #+#             */
-/*   Updated: 2022/03/30 17:29:45 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/03/31 19:03:57 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,16 @@ int	ft_isdigit(int c)
 		return (0);
 }
 
+long	get_ts(void)
+{
+	struct timeval	ts;
+	long			ms_ts;
+
+	gettimeofday(&ts, NULL);
+	ms_ts = (ts.tv_sec * 1000) + (ts.tv_usec / 1000);
+	return (ms_ts);
+}
+
 void	destroy_mutex(t_data *data)
 {
 	int	i;
@@ -58,10 +68,10 @@ void	destroy_mutex(t_data *data)
 	i = -1;
 	while (++i < data->n_philo)
 	{
-		pthread_mutex_destroy(&data->philos[i].eat_count);
-		pthread_mutex_destroy(&data->forks[i].lock);
+		pthread_mutex_destroy(&data->philos[i].meal_count);
+		pthread_mutex_destroy(&data->forks[i]);
 	}
-	pthread_mutex_destroy(&data->dinner_start_lock);
-	pthread_mutex_destroy(&data->death_event_lock);
+	pthread_mutex_destroy(&data->meal_checker_lock);
+	pthread_mutex_destroy(&data->death_checker_lock);
 	return ;
 }

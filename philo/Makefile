@@ -6,7 +6,7 @@
 #    By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 10:06:02 by llethuil          #+#    #+#              #
-#    Updated: 2022/03/30 18:41:52 by llethuil         ###   ########lyon.fr    #
+#    Updated: 2022/03/31 13:04:47 by llethuil         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,10 +38,10 @@ NAME		:=	philo
 INCS		:=	philo.h	\
 
 SRCS		:=	check_args.c				\
-				clean_data_after_dinner.c	\
-				init_data_before_dinner.c	\
+				clean_after_dinner.c		\
+				prepare_philos_for_dinner.c	\
 				main.c						\
-				philo_dinner.c				\
+				philos_dinner.c				\
 				utils.c						\
 
 OBJS_LST		:=	$(SRCS:.c=.o)

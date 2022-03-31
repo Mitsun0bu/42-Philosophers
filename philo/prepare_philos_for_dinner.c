@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_data_before_dinner.c                          :+:      :+:    :+:   */
+/*   prepare_philos_for_dinner.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 19:37:44 by llethuil          #+#    #+#             */
-/*   Updated: 2022/03/30 18:42:53 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/03/31 17:37:50 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"philo.h"
 
-int	init_data_before_dinner(int ac, char **av, t_data *data)
+int	prepare_philos_for_dinner(int ac, char **av, t_data *data)
 {
 	if (check_args(ac, av) == FAILED)
 		return (FAILED);
 	get_args(av, data);
+	if (init_other_data(data) == FAILED)
+		return (FAILED);
 	if (init_philos(data) == FAILED)
-		return (FAILED);
-	if (init_forks(data) == FAILED)
-		return (FAILED);
-	init_rest_of_data(data);
-	if (!data->forks)
 		return (FAILED);
 	return (0);
 }
@@ -40,6 +37,29 @@ void	get_args(char **av, t_data *data)
 		data->n_time_must_eat = -1;
 }
 
+int	init_other_data(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	data->dinner_start_time = 0;
+	data->death_event = NO;
+	pthread_mutex_init(&data->message_lock, NULL);
+	pthread_mutex_init(&data->meal_checker_lock, NULL);
+	pthread_mutex_init(&data->death_checker_lock, NULL);
+	data->forks = malloc(sizeof(pthread_mutex_t) * (data->n_fork));
+	if (!data->forks)
+	{
+		printf("Error : Malloc of forks failed !");
+		return (FAILED);
+	}
+	while (++i < data->n_fork)
+		pthread_mutex_init(&data->forks[i], NULL);
+	return (0);
+}
+// pthread_mutex_init(&data->dinner_start_lock, NULL);
+// data->dinner_can_start = NO;
+
 int	init_philos(t_data *data)
 {
 	int	i;
@@ -54,38 +74,12 @@ int	init_philos(t_data *data)
 	while (++i < data->n_philo)
 	{
 		data->philos[i].id = i + 1;
-		pthread_mutex_init(&data->philos[i].eat_count, NULL);
+		data->philos[i].is_alive = YES;
+		data->philos[i].meal_count = 0;
 		data->philos[i].last_meal_ts = 0;
+		data->philos[i].leave_dinner = NO;
 		data->philos[i].thread = 0;
+		data->philos[i].data = *data;
 	}
-	return (0);
-}
-
-int	init_forks(t_data *data)
-{
-	int	i;
-
-	data->forks = malloc(sizeof(t_fork) * (data->n_fork));
-	if (!data->forks)
-	{
-		printf("Error : Malloc of forks failed !");
-		return (FAILED);
-	}
-	i = -1;
-	while (++i < data->n_fork)
-	{
-		data->forks[i].id = i + 1;
-		pthread_mutex_init(&data->forks[i].lock, NULL);
-	}
-	return (0);
-}
-
-int	init_rest_of_data(t_data *data)
-{
-	data->dinner_start_time = 0;
-	data->dinner_can_start = FALSE;
-	pthread_mutex_init(&data->dinner_start_lock, NULL);
-	data->death_event = FALSE;
-	pthread_mutex_init(&data->death_event_lock, NULL);
 	return (0);
 }
