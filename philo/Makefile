@@ -6,7 +6,7 @@
 #    By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 10:06:02 by llethuil          #+#    #+#              #
-#    Updated: 2022/03/31 13:04:47 by llethuil         ###   ########lyon.fr    #
+#    Updated: 2022/04/01 18:46:27 by llethuil         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,9 +39,11 @@ INCS		:=	philo.h	\
 
 SRCS		:=	check_args.c				\
 				clean_after_dinner.c		\
-				prepare_philos_for_dinner.c	\
 				main.c						\
+				philo_actions.c				\
+				philo_questioning.c			\
 				philos_dinner.c				\
+				prepare_philos_for_dinner.c	\
 				utils.c						\
 
 OBJS_LST		:=	$(SRCS:.c=.o)
@@ -52,7 +54,7 @@ OBJS		:= $(addprefix $(OBJS_DIR)/, $(OBJS_LST))
 
 CC			:=	gcc
 
-CFLAGS		:=	-Wall -Wextra -Werror -I $(INCS) -pthread
+CFLAGS		:=	-Wall -Wextra -Werror -I $(INCS) -pthread -g -fsanitize=thread
 
 #	To use valgrind --leak-check=full
 #	add the flag :	-ggdb3

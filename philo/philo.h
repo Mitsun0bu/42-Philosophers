@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 18:59:07 by llethuil          #+#    #+#             */
-/*   Updated: 2022/03/31 19:06:10 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/04/01 18:41:20 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,15 @@
 
 typedef struct s_data
 {
-	int				n_philo;
-	int				n_fork;
+	int				n_philos;
+	int				n_forks;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				n_time_must_eat;
 	long			dinner_start_time;
 	int				death_event;
-	pthread_mutex_t	message_lock;
-	pthread_mutex_t	meal_checker_lock;
-	pthread_mutex_t	death_checker_lock;
+	pthread_mutex_t	death;
 	pthread_mutex_t	*forks;
 	struct s_philo	*philos;
 }	t_data;
@@ -77,11 +75,15 @@ typedef struct s_philo
 {
 	int				id;
 	int				is_alive;
+	pthread_mutex_t	living_state;
 	int				meal_count;
+	pthread_mutex_t	meal;
 	long			last_meal_ts;
 	int				leave_dinner;
+	pthread_mutex_t	presence;
+	pthread_mutex_t	print;
 	pthread_t		thread;
-	struct s_data	data;
+	struct s_data	*data;
 }	t_philo;
 
 /* ************************************************************************** */
@@ -105,13 +107,16 @@ int		main(int ac, char **av);
 /*	philo_actions	*/
 void	philo_take_forks(t_philo *philo);
 void	philo_eat(t_philo *philo);
+void	philo_drop_forks(t_philo *philo);
 void	philo_sleep(t_philo *philo);
 void	philo_think(t_philo *philo);
 
 /*	philo_questioning.c	*/
-int	am_i_alive(t_philo *philo);
-int	am_i_full(t_philo *philo);
-int	does_somebody_died(t_data *data);
+int		should_i_stop(t_philo *philo);
+int		am_i_alive(t_philo *philo);
+int		am_i_full(t_philo *philo);
+int		does_somebody_died(t_data *data);
+int		is_everyone_full(t_data *data);
 
 /*	philo_dinner.c	*/
 void	philos_dinner(t_data *data);
@@ -119,7 +124,6 @@ int		start_dinner(t_data *data);
 void	*dinner(void *arg);
 void	supervise_dinner(t_data *data);
 int		end_dinner(t_data *data);
-int		is_everyone_full(t_data *data);
 void	check_meal_count(t_data *data);
 
 /*	prepare_philos_for_dinner.c	*/

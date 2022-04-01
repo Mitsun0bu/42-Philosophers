@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 15:12:19 by llethuil          #+#    #+#             */
-/*   Updated: 2022/03/31 19:03:57 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/04/01 15:17:25 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,13 @@ void	destroy_mutex(t_data *data)
 	int	i;
 
 	i = -1;
-	while (++i < data->n_philo)
+	while (++i < data->n_philos)
 	{
-		pthread_mutex_destroy(&data->philos[i].meal_count);
-		pthread_mutex_destroy(&data->forks[i]);
+		pthread_mutex_destroy(&data->philos[i].print);
+		pthread_mutex_destroy(&data->philos[i].meal);
+		pthread_mutex_destroy(&data->philos[i].living_state);
 	}
-	pthread_mutex_destroy(&data->meal_checker_lock);
-	pthread_mutex_destroy(&data->death_checker_lock);
+	while (++i < data->n_forks)
+		pthread_mutex_destroy(&data->forks[i]);
 	return ;
 }
