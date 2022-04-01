@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 18:52:38 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/01 18:44:00 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/04/01 19:08:35 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	philo_take_forks(t_philo *philo)
 	else if (i == philo->data->n_philos)
 		pthread_mutex_lock(&philo->data->forks[0]);
 
-	time = get_ts() - philo->data->dinner_start_time;
+	time = get_ts() - philo->data->start_time;
 	if (should_i_stop(philo) == NO)
 	{
 		pthread_mutex_unlock(&philo->print);
@@ -41,7 +41,7 @@ void	philo_eat(t_philo *philo)
 
 	i = philo->id - 1;
 
-	time = get_ts() - philo->data->dinner_start_time;
+	time = get_ts() - philo->data->start_time;
 	philo->last_meal_ts = time;
 
 	if (should_i_stop(philo) == NO)
@@ -77,7 +77,7 @@ void	philo_sleep(t_philo *philo)
 	long	time;
 
 	i = philo->id - 1;
-	time = get_ts() - philo->data->dinner_start_time;
+	time = get_ts() - philo->data->start_time;
 
 	if (should_i_stop(philo) == NO)
 	{
@@ -96,7 +96,7 @@ void	philo_think(t_philo *philo)
 
 	i = philo->id - 1;
 
-	time = get_ts() - philo->data->dinner_start_time;
+	time = get_ts() - philo->data->start_time;
 
 	if (should_i_stop(philo) == NO)
 	{

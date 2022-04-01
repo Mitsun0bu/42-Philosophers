@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 19:37:44 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/01 18:42:53 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/04/01 19:08:35 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int	init_other_data(t_data *data)
 	int	i;
 
 	i = -1;
-	data->dinner_start_time = 0;
+	data->start_time = 0;
+	pthread_mutex_init(&data->time, NULL);
 	data->death_event = NO;
 	pthread_mutex_init(&data->death, NULL);
 	data->forks = malloc(sizeof(pthread_mutex_t) * (data->n_forks));
@@ -70,8 +71,6 @@ int	init_philos(t_data *data)
 	while (++i < data->n_philos)
 	{
 		data->philos[i].id = i + 1;
-		data->philos[i].is_alive = YES;
-		pthread_mutex_init(&data->philos[i].living_state, NULL);
 		data->philos[i].meal_count = 0;
 		pthread_mutex_init(&data->philos[i].meal, NULL);
 		data->philos[i].last_meal_ts = 0;

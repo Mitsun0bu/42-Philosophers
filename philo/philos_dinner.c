@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 15:08:49 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/01 18:42:19 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/04/01 19:09:36 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ void	*dinner(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	philo->data->dinner_start_time = get_ts();
+	pthread_mutex_lock(&philo->data->time);
+	philo->data->start_time = get_ts();
+	pthread_mutex_unlock(&philo->data->time);
 	while (1)
 	{
 		philo_take_forks(philo);

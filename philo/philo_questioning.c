@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 18:39:08 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/01 18:43:35 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/04/01 19:11:09 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,11 @@ int	am_i_alive(t_philo *philo)
 {
 	long	time;
 
-	time = get_ts() - philo->data->dinner_start_time;
-
-	pthread_mutex_lock(&philo->living_state);
+	pthread_mutex_lock(&philo->data->time);
+	time = get_ts() - philo->data->start_time;
+	pthread_mutex_unlock(&philo->data->time);
 	if (time - philo->last_meal_ts >= philo->data->time_to_die)
 	{
-		philo->is_alive = NO;
-		pthread_mutex_unlock(&philo->living_state);
-
 		pthread_mutex_lock(&philo->data->death);
 		if (philo->data->death_event == NO)
 		{
@@ -62,10 +59,8 @@ int	am_i_alive(t_philo *philo)
 			philo->data->death_event = YES;
 		}
 		pthread_mutex_unlock(&philo->data->death);
-
 		return (NO);
 	}
-	pthread_mutex_unlock(&philo->living_state);
 	return (YES);
 }
 
@@ -73,7 +68,9 @@ int	am_i_full(t_philo *philo)
 {
 	long	time;
 
-	time = get_ts() - philo->data->dinner_start_time;
+	pthread_mutex_lock(&philo->data->time);
+	time = get_ts() - philo->data->start_time;
+	pthread_mutex_unlock(&philo->data->time);
 
 	pthread_mutex_lock(&philo->meal);
 	if (philo->meal_count == philo->data->n_time_must_eat)
@@ -98,15 +95,10 @@ int	does_somebody_died(t_data *data)
 	i = -1;
 	while (++i < data->n_philos)
 	{
-		pthread_mutex_lock(&data->philos[i].living_state);
-		if (data->philos[i].is_alive == NO)
+		pthread_mutex_lock(&data->death);
+		if (data->death_event == YES)
 		{
-			pthread_mutex_unlock(&data->philos[i].living_state);
-
-			pthread_mutex_lock(&data->death);
-			data->death_event = YES;
 			pthread_mutex_unlock(&data->death);
-
 			j = -1;
 			while (j++ < data->n_philos)
 			{
@@ -114,10 +106,9 @@ int	does_somebody_died(t_data *data)
 				data->philos[j].leave_dinner = YES;
 				pthread_mutex_unlock(&data->philos[j].presence);
 			}
-
 			return (YES);
 		}
-		pthread_mutex_unlock(&data->philos[i].living_state);
+		pthread_mutex_unlock(&data->death);
 	}
 	return (NO);
 }

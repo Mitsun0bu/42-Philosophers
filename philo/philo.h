@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 18:59:07 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/01 18:41:20 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/04/01 19:08:35 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ typedef struct s_data
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				n_time_must_eat;
-	long			dinner_start_time;
+	long			start_time;
+	pthread_mutex_t	time;
 	int				death_event;
 	pthread_mutex_t	death;
 	pthread_mutex_t	*forks;
@@ -74,8 +75,6 @@ typedef struct s_data
 typedef struct s_philo
 {
 	int				id;
-	int				is_alive;
-	pthread_mutex_t	living_state;
 	int				meal_count;
 	pthread_mutex_t	meal;
 	long			last_meal_ts;
