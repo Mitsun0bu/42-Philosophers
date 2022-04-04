@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 18:39:08 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/01 19:11:09 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/04/04 19:33:39 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,7 @@ int	am_i_alive(t_philo *philo)
 		pthread_mutex_lock(&philo->data->death);
 		if (philo->data->death_event == NO)
 		{
-			pthread_mutex_lock(&philo->print);
 			printf("\033[0;35m[%lu\tms]\033[0m Philo #%d died !\n", time, philo->id);
-			pthread_mutex_unlock(&philo->print);
 			philo->data->death_event = YES;
 		}
 		pthread_mutex_unlock(&philo->data->death);
@@ -76,15 +74,28 @@ int	am_i_full(t_philo *philo)
 	if (philo->meal_count == philo->data->n_time_must_eat)
 	{
 		pthread_mutex_unlock(&philo->meal);
-
 		pthread_mutex_lock(&philo->presence);
 		philo->leave_dinner = YES;
 		pthread_mutex_unlock(&philo->presence);
-
 		return (YES);
 	}
 	pthread_mutex_unlock(&philo->meal);
 	return (NO);
+}
+
+void	am_i_an_odd_philo(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->odd_id);
+	if (philo->id % 2 == 0)
+	{
+		usleep(5);
+		pthread_mutex_unlock(&philo->odd_id);
+	}
+	else
+	{
+		pthread_mutex_unlock(&philo->odd_id);
+		return ;
+	}
 }
 
 int	does_somebody_died(t_data *data)

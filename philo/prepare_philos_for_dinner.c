@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 19:37:44 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/01 19:08:35 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/04/04 19:17:24 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	init_philos(t_data *data)
 	while (++i < data->n_philos)
 	{
 		data->philos[i].id = i + 1;
+		pthread_mutex_init(&data->philos[i].odd_id, NULL);
 		data->philos[i].meal_count = 0;
 		pthread_mutex_init(&data->philos[i].meal, NULL);
 		data->philos[i].last_meal_ts = 0;

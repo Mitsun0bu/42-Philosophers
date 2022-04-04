@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 18:59:07 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/01 19:08:35 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/04/04 19:16:56 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_data
 typedef struct s_philo
 {
 	int				id;
+	pthread_mutex_t	odd_id;
 	int				meal_count;
 	pthread_mutex_t	meal;
 	long			last_meal_ts;
@@ -109,11 +110,13 @@ void	philo_eat(t_philo *philo);
 void	philo_drop_forks(t_philo *philo);
 void	philo_sleep(t_philo *philo);
 void	philo_think(t_philo *philo);
+void	my_usleep(long	time, int	action_duration, long dinner_start);
 
 /*	philo_questioning.c	*/
 int		should_i_stop(t_philo *philo);
 int		am_i_alive(t_philo *philo);
 int		am_i_full(t_philo *philo);
+void	am_i_an_odd_philo(t_philo *philo);
 int		does_somebody_died(t_data *data);
 int		is_everyone_full(t_data *data);
 

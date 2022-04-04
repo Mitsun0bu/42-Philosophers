@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 15:12:19 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/01 19:02:40 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/04/04 19:27:58 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,12 @@ long	get_ts(void)
 	return (ms_ts);
 }
 
-void	destroy_mutex(t_data *data)
+void	my_usleep(long time, int action_duration, long dinner_start)
 {
-	int	i;
+	long	time_to_stop;
 
-	i = -1;
-	while (++i < data->n_philos)
-	{
-		pthread_mutex_destroy(&data->philos[i].meal);
-		pthread_mutex_destroy(&data->philos[i].presence);
-		pthread_mutex_destroy(&data->philos[i].print);
-	}
-	while (++i < data->n_forks)
-		pthread_mutex_destroy(&data->forks[i]);
-	return ;
+	time_to_stop = time + action_duration;
+	usleep(action_duration * 0.95 * 1000);
+	while ((get_ts() - dinner_start) < time_to_stop)
+		usleep(1);
 }

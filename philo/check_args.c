@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 19:19:55 by llethuil          #+#    #+#             */
-/*   Updated: 2022/03/30 09:52:55 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/04/04 18:27:52 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	check_arg_is_nbr(int ac, char **av)
 		j = -1;
 		while (av[i][++j])
 		{
-			if (ft_isdigit(av[i][j]) == 0)
+			if (!ft_isdigit(av[i][j]) || av[1][0] == '0')
 			{
 				printf("Error: All arguments should be (positive) numbers !\n");
 				return (-1);
