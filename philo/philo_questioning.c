@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 18:39:08 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/22 11:35:54 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/04/22 18:30:28 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,7 @@ int	am_i_alive(t_philo *philo)
 {
 	long	time;
 
-	// pthread_mutex_lock(&philo->data->time);
 	time = get_ts() - philo->data->start_time;
-	// pthread_mutex_unlock(&philo->data->time);
 	if (time - philo->last_meal_ts >= philo->data->time_to_die)
 	{
 		pthread_mutex_lock(&philo->data->death);

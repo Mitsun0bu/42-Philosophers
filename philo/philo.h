@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 18:59:07 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/22 11:52:39 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/04/22 18:33:02 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 # define FAILED -1
 # define NO 0
 # define YES 1
+# define EAT 2
+# define SLEEP 2
+# define THINK 2
 
 /* ************************************************************************** */
 /*                                                                            */

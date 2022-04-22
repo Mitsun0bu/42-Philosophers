@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 15:12:19 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/22 10:59:11 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/04/22 18:32:36 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,19 @@ void	my_usleep(long time, int action_duration, long dinner_start)
 	long	time_to_stop;
 
 	time_to_stop = time + action_duration;
-	usleep(action_duration * 0.95 * 1000);
+	usleep(action_duration * 0.80 * 1000);
 	while ((get_ts() - dinner_start) < time_to_stop)
 		usleep(500);
+}
+
+void	ft_print(t_philo *philo, long time)
+{
+	pthread_mutex_lock(&philo->data->death);
+	if (philo->data->death_event == NO)
+	{
+		printf("\033[0;35m[%lu\tms]\033[0m Philo #%d died !\n", time, philo->id);
+		philo->data->death_event = YES;
+	}
+	pthread_mutex_unlock(&philo->data->death);
+
 }

@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 18:52:38 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/22 11:47:23 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/04/22 18:30:19 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ void	philo_eat(t_philo *philo)
 	long	time;
 
 	i = philo->id - 1;
-	// pthread_mutex_lock(&philo->data->time);
 	time = get_ts() - philo->data->start_time;
-	// pthread_mutex_unlock(&philo->data->time);
 	philo->last_meal_ts = time;
 	if (should_i_stop(philo) == NO)
 		printf("\033[0;35m[%lu\tms]\033[0m Philo #%d is eating !\n", time, philo->id);
