@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 18:39:08 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/04 19:33:39 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/04/22 11:35:54 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,23 @@ int	should_i_stop(t_philo *philo)
 		return (YES);
 	}
 
-	pthread_mutex_lock(&philo->presence);
-	if (philo->leave_dinner == YES)
-	{
-		pthread_mutex_unlock(&philo->presence);
-		philo_drop_forks(philo);
-		return (YES);
-	}
-	pthread_mutex_unlock(&philo->presence);
+	// pthread_mutex_lock(&philo->presence);
+	// if (philo->leave_dinner == YES)
+	// {
+	// 	pthread_mutex_unlock(&philo->presence);
+	// 	philo_drop_forks(philo);
+	// 	return (YES);
+	// }
+	// pthread_mutex_unlock(&philo->presence);
 
-	pthread_mutex_lock(&philo->data->death);
-	if (philo->data->death_event == YES)
-	{
-		pthread_mutex_unlock(&philo->data->death);
-		philo_drop_forks(philo);
-		return (YES);
-	}
-	pthread_mutex_unlock(&philo->data->death);
+	// pthread_mutex_lock(&philo->data->death);
+	// if (philo->data->death_event == YES)
+	// {
+	// 	pthread_mutex_unlock(&philo->data->death);
+	// 	philo_drop_forks(philo);
+	// 	return (YES);
+	// }
+	// pthread_mutex_unlock(&philo->data->death);
 
 	return (NO);
 }
@@ -45,9 +45,9 @@ int	am_i_alive(t_philo *philo)
 {
 	long	time;
 
-	pthread_mutex_lock(&philo->data->time);
+	// pthread_mutex_lock(&philo->data->time);
 	time = get_ts() - philo->data->start_time;
-	pthread_mutex_unlock(&philo->data->time);
+	// pthread_mutex_unlock(&philo->data->time);
 	if (time - philo->last_meal_ts >= philo->data->time_to_die)
 	{
 		pthread_mutex_lock(&philo->data->death);
@@ -66,9 +66,9 @@ int	am_i_full(t_philo *philo)
 {
 	long	time;
 
-	pthread_mutex_lock(&philo->data->time);
+	// pthread_mutex_lock(&philo->data->time);
 	time = get_ts() - philo->data->start_time;
-	pthread_mutex_unlock(&philo->data->time);
+	// pthread_mutex_unlock(&philo->data->time);
 
 	pthread_mutex_lock(&philo->meal);
 	if (philo->meal_count == philo->data->n_time_must_eat)
@@ -85,17 +85,10 @@ int	am_i_full(t_philo *philo)
 
 void	am_i_an_odd_philo(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->odd_id);
 	if (philo->id % 2 == 0)
-	{
-		usleep(5);
-		pthread_mutex_unlock(&philo->odd_id);
-	}
+		usleep(100);
 	else
-	{
-		pthread_mutex_unlock(&philo->odd_id);
 		return ;
-	}
 }
 
 int	does_somebody_died(t_data *data)

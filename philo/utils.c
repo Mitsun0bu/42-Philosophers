@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 15:12:19 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/04 19:27:58 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/04/22 10:59:11 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,5 @@ void	my_usleep(long time, int action_duration, long dinner_start)
 	time_to_stop = time + action_duration;
 	usleep(action_duration * 0.95 * 1000);
 	while ((get_ts() - dinner_start) < time_to_stop)
-		usleep(1);
+		usleep(500);
 }

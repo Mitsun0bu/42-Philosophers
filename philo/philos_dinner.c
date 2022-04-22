@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 15:08:49 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/04 19:19:04 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/04/22 11:37:52 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	start_dinner(t_data *data)
 	int	i;
 
 	i = -1;
+	data->start_time = get_ts();
 	while (++i < data->n_philos)
 	{
 		if (pthread_create(&data->philos[i].thread, NULL,
@@ -42,9 +43,6 @@ void	*dinner(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	pthread_mutex_lock(&philo->data->time);
-	philo->data->start_time = get_ts();
-	pthread_mutex_unlock(&philo->data->time);
 	am_i_an_odd_philo(philo);
 	while (1)
 	{
