@@ -6,25 +6,41 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 19:37:44 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/22 11:53:48 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/04/25 09:42:50 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"philo.h"
 
+static int	check_args(int ac, char **av);
+static void	put_args_in_data(char **av, t_data *data);
+static int	init_rest_of_data_struct(t_data *data);
+static int	init_philos(t_data *data);
+
 int	prepare_philos_for_dinner(int ac, char **av, t_data *data)
 {
 	if (check_args(ac, av) == FAILED)
 		return (FAILED);
-	get_args(av, data);
-	if (init_other_data(data) == FAILED)
+	put_args_in_data(av, data);
+	if (init_rest_of_data_struct(data) == FAILED)
 		return (FAILED);
 	if (init_philos(data) == FAILED)
 		return (FAILED);
 	return (0);
 }
 
-void	get_args(char **av, t_data *data)
+static int	check_args(int ac, char **av)
+{
+	if (check_n_args(ac) == FAILED)
+		return (FAILED);
+	if (check_arg_is_nbr(ac, av) == FAILED)
+		return (FAILED);
+	if (check_arg_overflow(ac, av) == FAILED)
+		return (FAILED);
+	return (0);
+}
+
+static void	put_args_in_data(char **av, t_data *data)
 {
 	data->n_philos = ft_atoi(av[1]);
 	data->n_forks = ft_atoi(av[1]);
@@ -37,7 +53,7 @@ void	get_args(char **av, t_data *data)
 		data->n_time_must_eat = -1;
 }
 
-int	init_other_data(t_data *data)
+static int	init_rest_of_data_struct(t_data *data)
 {
 	int	i;
 
@@ -56,7 +72,7 @@ int	init_other_data(t_data *data)
 	return (0);
 }
 
-int	init_philos(t_data *data)
+static int	init_philos(t_data *data)
 {
 	int	i;
 

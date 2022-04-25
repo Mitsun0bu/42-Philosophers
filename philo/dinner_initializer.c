@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_args.c                                       :+:      :+:    :+:   */
+/*   prepare_philos_for_dinner_utils.c                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 19:19:55 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/04 18:27:52 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/04/25 09:47:36 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"philo.h"
 
-int	check_args(int ac, char **av)
-{
-	if (check_n_args(ac) == FAILED)
-		return (FAILED);
-	if (check_arg_is_nbr(ac, av) == FAILED)
-		return (FAILED);
-	if (check_arg_overflow(ac, av) == FAILED)
-		return (FAILED);
-	return (0);
-}
+static int	ft_isdigit(int c);
 
 int	check_n_args(int ac)
 {
@@ -68,4 +59,30 @@ int	check_arg_overflow(int ac, char **av)
 		}
 	}
 	return (0);
+}
+
+int	ft_atoi(char *str)
+{
+	int	nbr;
+	int	i;
+
+	nbr = 0;
+	i = 0;
+	while (str[i] && '0' <= str[i] && str[i] <= '9')
+	{
+		if (nbr > 2147483647 || nbr < 0)
+			return (-1);
+		nbr = nbr * 10;
+		nbr = nbr + str[i] - '0';
+		i++;
+	}
+	return (nbr);
+}
+
+static int	ft_isdigit(int c)
+{
+	if ('0' <= c && c <= '9')
+		return (1);
+	else
+		return (0);
 }

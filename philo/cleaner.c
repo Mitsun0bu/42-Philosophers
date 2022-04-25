@@ -6,11 +6,13 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 18:30:26 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/22 11:46:50 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/04/25 09:50:58 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"philo.h"
+
+static void	destroy_mutex(t_data *data);
 
 void	clean_after_dinner(t_data *data)
 {
@@ -19,7 +21,7 @@ void	clean_after_dinner(t_data *data)
 	free(data->forks);
 }
 
-void	destroy_mutex(t_data *data)
+static void	destroy_mutex(t_data *data)
 {
 	int	i;
 

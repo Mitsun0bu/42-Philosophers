@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philos_dinner.c                                    :+:      :+:    :+:   */
+/*   philos_diner_manager.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 15:08:49 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/22 11:37:52 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/04/25 09:33:31 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"philo.h"
 
-void	philos_dinner(t_data *data)
+static int	start_dinner(t_data *data);
+static int	end_dinner(t_data *data);
+
+void	philos_dinner_manager(t_data *data)
 {
 	if (start_dinner(data) == FAILED)
 		return ;
@@ -20,7 +23,7 @@ void	philos_dinner(t_data *data)
 	end_dinner(data);
 }
 
-int	start_dinner(t_data *data)
+static int	start_dinner(t_data *data)
 {
 	int	i;
 
@@ -38,43 +41,7 @@ int	start_dinner(t_data *data)
 	return (0);
 }
 
-void	*dinner(void *arg)
-{
-	t_philo	*philo;
-
-	philo = (t_philo *)arg;
-	am_i_an_odd_philo(philo);
-	while (1)
-	{
-		philo_take_forks(philo);
-		if(should_i_stop(philo) == YES)
-			break;
-		philo_eat(philo);
-		philo_drop_forks(philo);
-		if(should_i_stop(philo) == YES)
-			break ;
-		philo_sleep(philo);
-		if(should_i_stop(philo) == YES)
-			break ;
-		philo_think(philo);
-		if(should_i_stop(philo) == YES)
-			break ;
-	}
-	return ((void *)1);
-}
-
-void	supervise_dinner(t_data *data)
-{
-	while (1)
-	{
-		if (does_somebody_died(data) == YES)
-			break ;
-		if (is_everyone_full(data) == YES)
-			break ;
-	}
-}
-
-int	end_dinner(t_data *data)
+static int	end_dinner(t_data *data)
 {
 	int	i;
 

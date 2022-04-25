@@ -6,7 +6,7 @@
 #    By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 10:06:02 by llethuil          #+#    #+#              #
-#    Updated: 2022/04/22 11:40:09 by llethuil         ###   ########lyon.fr    #
+#    Updated: 2022/04/25 09:48:49 by llethuil         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ SRCS		:=	check_args.c				\
 				main.c						\
 				philo_actions.c				\
 				philo_questioning.c			\
-				philos_dinner.c				\
+				philos_diner_manager.c				\
 				prepare_philos_for_dinner.c	\
 				utils.c						\
 
