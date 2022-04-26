@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 09:32:57 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/26 16:33:18 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/04/26 20:59:15 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	*dinner_routine(void *arg)
 	am_i_an_odd_philo(philo);
 	while (1)
 	{
+		if(should_i_stop(philo) == YES)
+			break ;
 		if (philo_take_forks(philo) == FAILED)
 			continue;
 		philo_eat(philo);

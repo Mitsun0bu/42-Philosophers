@@ -6,7 +6,7 @@
 #    By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 10:06:02 by llethuil          #+#    #+#              #
-#    Updated: 2022/04/26 16:43:32 by llethuil         ###   ########lyon.fr    #
+#    Updated: 2022/04/26 21:39:33 by llethuil         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ OBJS		:= $(addprefix $(OBJS_DIR)/, $(OBJS_LST))
 
 CC			:=	gcc
 
-CFLAGS		:=	-Wall -Wextra -Werror -I $(INCS) -g -fsanitize=thread -pthread
+CFLAGS		:=	-Wall -Wextra -Werror -I $(INCS) -pthread
 
 #	To use valgrind --leak-check=full
 #	add the flag :	-ggdb3
