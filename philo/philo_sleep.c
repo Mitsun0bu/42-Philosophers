@@ -1,35 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dinner_routine.c                                   :+:      :+:    :+:   */
+/*   philo_sleep.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/25 09:32:57 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/26 16:33:18 by llethuil         ###   ########lyon.fr   */
+/*   Created: 2022/04/26 16:23:41 by llethuil          #+#    #+#             */
+/*   Updated: 2022/04/26 16:57:19 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"philo.h"
 
-void	*dinner_routine(void *arg)
+void	philo_sleep(t_philo *philo)
 {
-	t_philo	*philo;
+	long	time;
 
-	philo = (t_philo *)arg;
-	am_i_an_odd_philo(philo);
-	while (1)
-	{
-		if (philo_take_forks(philo) == FAILED)
-			continue;
-		philo_eat(philo);
-		philo_drop_forks(philo);
-		philo_sleep(philo);
-		if(should_i_stop(philo) == YES)
-			break ;
-		philo_think(philo);
-		if(should_i_stop(philo) == YES)
-			break ;
-	}
-	return ((void *)1);
+	ft_print(philo, SLEEP);
+	time = get_ts() - philo->data->start_time;
+	ft_usleep(time, philo->data->time_to_sleep, philo->data->start_time);
 }

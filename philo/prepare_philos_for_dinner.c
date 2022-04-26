@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prepare_philos_for_dinner.c                        :+:      :+:    :+:   */
+/*   dinner_initializer.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 19:37:44 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/25 09:42:50 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/04/26 13:38:41 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,21 @@ static int	init_rest_of_data_struct(t_data *data)
 	i = -1;
 	data->start_time = 0;
 	data->death_event = NO;
-	pthread_mutex_init(&data->death, NULL);
-	data->forks = malloc(sizeof(pthread_mutex_t) * (data->n_forks));
+	data->forks = ft_calloc(sizeof(int), data->n_forks);
 	if (!data->forks)
 	{
 		printf("Error : Malloc of forks failed !");
 		return (FAILED);
 	}
+	pthread_mutex_init(&data->death_mutex, NULL);
+	data->forks_mutex = malloc(sizeof(pthread_mutex_t) * (data->n_forks));
+	if (!data->forks_mutex)
+	{
+		printf("Error : Malloc of forks_mutex failed !");
+		return (FAILED);
+	}
 	while (++i < data->n_forks)
-		pthread_mutex_init(&data->forks[i], NULL);
+		pthread_mutex_init(&data->forks_mutex[i], NULL);
 	return (0);
 }
 
@@ -85,13 +91,10 @@ static int	init_philos(t_data *data)
 	i = -1;
 	while (++i < data->n_philos)
 	{
-		data->philos[i].id = i + 1;
-		data->philos[i].n_fork_held = 1;
+		data->philos[i].id = i;
 		data->philos[i].meal_count = 0;
-		pthread_mutex_init(&data->philos[i].meal, NULL);
+		pthread_mutex_init(&data->philos[i].meal_count_mutex, NULL);
 		data->philos[i].last_meal_ts = 0;
-		data->philos[i].leave_dinner = NO;
-		pthread_mutex_init(&data->philos[i].presence, NULL);
 		data->philos[i].thread = 0;
 		data->philos[i].data = data;
 	}

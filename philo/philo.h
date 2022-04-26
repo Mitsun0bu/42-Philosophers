@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 18:59:07 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/25 10:10:28 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/04/26 16:58:33 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,18 @@
 # define PHILO_H
 
 # define FAILED -1
+# define SUCCESS 1
 # define NO 0
 # define YES 1
+// # define UNUSED 0
+// # define AVAILABLE 1
+// # define BUSY -1
+# define AVAILABLE 0
+# define BUSY 1
 # define DIE 0
-# define TAKE 1
+# define TAKE_FORK 1
 # define EAT 2
-# define DROP 3
+# define DROP_FORK 3
 # define SLEEP 4
 # define THINK 5
 
@@ -72,20 +78,18 @@ typedef struct s_data
 	int				n_time_must_eat;
 	long			start_time;
 	int				death_event;
-	pthread_mutex_t	death;
-	pthread_mutex_t	*forks;
+	pthread_mutex_t	death_mutex;
+	int				*forks;
+	pthread_mutex_t	*forks_mutex;
 	struct s_philo	*philos;
 }	t_data;
 
 typedef struct s_philo
 {
 	int				id;
-	int				n_fork_held;
 	int				meal_count;
-	pthread_mutex_t	meal;
+	pthread_mutex_t	meal_count_mutex;
 	long			last_meal_ts;
-	int				leave_dinner;
-	pthread_mutex_t	presence;
 	pthread_t		thread;
 	struct s_data	*data;
 }	t_philo;
@@ -96,48 +100,56 @@ typedef struct s_philo
 /*                                                                            */
 /* ************************************************************************** */
 
+/* am_i_an_odd_philo.c */
+void	am_i_an_odd_philo(t_philo *philo);
+
+/* clean_after_dinner.c */
+void	clean_after_dinner(t_data *data);
+
+/* dinner_routine.c	*/
+void	*dinner_routine(void *arg);
+
 /*	main.c	*/
 int		main(int ac, char **av);
 
-/*	actions	*/
-void	philo_take_forks(t_philo *philo);
-void	philo_eat(t_philo *philo);
+/* philo_drop_forks.c */
 void	philo_drop_forks(t_philo *philo);
+
+/* philo_eat.c */
+void	philo_eat(t_philo *philo);
+
+/* philo_sleep.c */
 void	philo_sleep(t_philo *philo);
+
+/* philo_take_forks.c */
+int		philo_take_forks(t_philo *philo);
+
+/* philo_think.c */
 void	philo_think(t_philo *philo);
 
-/* cleaner.c */
-void	clean_after_dinner(t_data *data);
+/*	philo_dinner_manager.c	*/
+void	philo_dinner_manager(t_data *data);
 
-/*	questions.c	*/
+/*	prepare_philo_for_dinner.c	*/
+int		prepare_philos_for_dinner(int ac, char **av, t_data *data);
+
+/*	should_i_stop.c	*/
 int		should_i_stop(t_philo *philo);
-int		am_i_alive(t_philo *philo);
-int		am_i_full(t_philo *philo);
-void	am_i_an_odd_philo(t_philo *philo);
-
-/*	dinner_manager.c	*/
-void	philos_diner_manager(t_data *data);
-
-/* dinner_routine.c	*/
-void	*dinner(void *arg);
 
 /* dinner_superviser.c */
 void	supervise_dinner(t_data *data);
 
-void	check_meal_count(t_data *data);
+/*	utils_global.c	*/
+long	get_ts(void);
+void	ft_usleep(long	time, int	action_duration, long dinner_start);
+void	ft_print(t_philo *philo, int action);
+void	*ft_calloc(size_t size, size_t count);
+void	*ft_memset(void *b, int c, size_t len);
 
-/*	dinner_initializer.c	*/
-int		prepare_philos_for_dinner(int ac, char **av, t_data *data);
-
-/*	dinner_initializer_utils.c	*/
+/*	utils_prepare_philo_for_dinner.c	*/
 int		check_n_args(int ac);
 int		check_arg_is_nbr(int ac, char **av);
 int		check_arg_overflow(int ac, char **av);
 int		ft_atoi(char *str);
-
-/*	utils.c	*/
-long	get_ts(void);
-void	ft_usleep(long	time, int	action_duration, long dinner_start);
-void	ft_print(t_philo *philo, long time, int action);
 
 #endif

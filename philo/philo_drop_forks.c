@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dinner_routine.c                                   :+:      :+:    :+:   */
+/*   philo_drop_forks.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/25 09:32:57 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/26 16:33:18 by llethuil         ###   ########lyon.fr   */
+/*   Created: 2022/04/26 13:40:33 by llethuil          #+#    #+#             */
+/*   Updated: 2022/04/26 16:32:12 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"philo.h"
 
-void	*dinner_routine(void *arg)
+void	philo_drop_forks(t_philo *philo)
 {
-	t_philo	*philo;
+	int	i;
+	int	i_left_fork;
+	int	i_right_fork;
 
-	philo = (t_philo *)arg;
-	am_i_an_odd_philo(philo);
-	while (1)
-	{
-		if (philo_take_forks(philo) == FAILED)
-			continue;
-		philo_eat(philo);
-		philo_drop_forks(philo);
-		philo_sleep(philo);
-		if(should_i_stop(philo) == YES)
-			break ;
-		philo_think(philo);
-		if(should_i_stop(philo) == YES)
-			break ;
-	}
-	return ((void *)1);
+	i = philo->id;
+	i_left_fork = i;
+	if (i == philo->data->n_philos - 1)
+		i_right_fork = 0;
+	else
+		i_right_fork = i + 1;
+	philo->data->forks[i_left_fork] = AVAILABLE;
+	philo->data->forks[i_right_fork] = AVAILABLE;
+	pthread_mutex_unlock(&philo->data->forks_mutex[i_left_fork]);
+	pthread_mutex_unlock(&philo->data->forks_mutex[i_right_fork]);
 }

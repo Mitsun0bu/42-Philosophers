@@ -1,37 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_after_dinner.c                               :+:      :+:    :+:   */
+/*   am_i_an_odd_philo.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/30 18:30:26 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/25 09:50:58 by llethuil         ###   ########lyon.fr   */
+/*   Created: 2022/04/26 16:27:53 by llethuil          #+#    #+#             */
+/*   Updated: 2022/04/26 16:28:08 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"philo.h"
 
-static void	destroy_mutex(t_data *data);
-
-void	clean_after_dinner(t_data *data)
+void	am_i_an_odd_philo(t_philo *philo)
 {
-	destroy_mutex(data);
-	free(data->philos);
-	free(data->forks);
-}
-
-static void	destroy_mutex(t_data *data)
-{
-	int	i;
-
-	i = -1;
-	while (++i < data->n_philos)
-	{
-		pthread_mutex_destroy(&data->philos[i].meal);
-		pthread_mutex_destroy(&data->philos[i].presence);
-	}
-	while (++i < data->n_forks)
-		pthread_mutex_destroy(&data->forks[i]);
-	return ;
+	if (philo->id % 2 == 0)
+		usleep(500);
+	else
+		return ;
 }

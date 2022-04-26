@@ -6,7 +6,7 @@
 #    By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 10:06:02 by llethuil          #+#    #+#              #
-#    Updated: 2022/04/25 09:48:49 by llethuil         ###   ########lyon.fr    #
+#    Updated: 2022/04/26 16:43:32 by llethuil         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,16 +35,23 @@ END			:=	\033[0m
 
 NAME		:=	philo
 
-INCS		:=	philo.h						\
+INCS		:=	philo.h								\
 
-SRCS		:=	check_args.c				\
-				clean_after_dinner.c		\
-				main.c						\
-				philo_actions.c				\
-				philo_questioning.c			\
-				philos_diner_manager.c				\
-				prepare_philos_for_dinner.c	\
-				utils.c						\
+SRCS		:=	am_i_an_odd_philo.c					\
+				clean_after_dinner.c				\
+				dinner_routine.c					\
+				main.c								\
+				philo_drop_forks.c					\
+				philo_eat.c							\
+				philo_sleep.c						\
+				philo_take_forks.c					\
+				philo_think.c						\
+				philo_dinner_manager.c				\
+				prepare_philos_for_dinner.c			\
+				should_i_stop.c						\
+				supervise_dinner.c					\
+				utils_global.c						\
+				utils_prepare_philos_for_dinner.c	\
 
 OBJS_LST		:=	$(SRCS:.c=.o)
 
@@ -54,7 +61,7 @@ OBJS		:= $(addprefix $(OBJS_DIR)/, $(OBJS_LST))
 
 CC			:=	gcc
 
-CFLAGS		:=	-Wall -Wextra -Werror -I $(INCS) -pthread
+CFLAGS		:=	-Wall -Wextra -Werror -I $(INCS) -g -fsanitize=thread -pthread
 
 #	To use valgrind --leak-check=full
 #	add the flag :	-ggdb3

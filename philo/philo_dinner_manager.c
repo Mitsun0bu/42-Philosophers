@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philos_diner_manager.c                                    :+:      :+:    :+:   */
+/*   philo_dinner_manager.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -15,7 +15,7 @@
 static int	start_dinner(t_data *data);
 static int	end_dinner(t_data *data);
 
-void	philos_dinner_manager(t_data *data)
+void	philo_dinner_manager(t_data *data)
 {
 	if (start_dinner(data) == FAILED)
 		return ;
@@ -32,7 +32,7 @@ static int	start_dinner(t_data *data)
 	while (++i < data->n_philos)
 	{
 		if (pthread_create(&data->philos[i].thread, NULL,
-				&dinner, &data->philos[i]) != 0)
+				&dinner_routine, &data->philos[i]) != 0)
 		{
 			printf("Error : Creation of philo thread failed !\n");
 			return (FAILED);

@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dinner_routine.c                                   :+:      :+:    :+:   */
+/*   philo_eat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/25 09:32:57 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/26 16:33:18 by llethuil         ###   ########lyon.fr   */
+/*   Created: 2022/04/26 16:23:12 by llethuil          #+#    #+#             */
+/*   Updated: 2022/04/26 16:56:54 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"philo.h"
 
-void	*dinner_routine(void *arg)
+void	philo_eat(t_philo *philo)
 {
-	t_philo	*philo;
-
-	philo = (t_philo *)arg;
-	am_i_an_odd_philo(philo);
-	while (1)
-	{
-		if (philo_take_forks(philo) == FAILED)
-			continue;
-		philo_eat(philo);
-		philo_drop_forks(philo);
-		philo_sleep(philo);
-		if(should_i_stop(philo) == YES)
-			break ;
-		philo_think(philo);
-		if(should_i_stop(philo) == YES)
-			break ;
-	}
-	return ((void *)1);
+	int		i;
+	long	time;
+	i = philo->id;
+	ft_print(philo, EAT);
+	time = get_ts() - philo->data->start_time;
+	ft_usleep(time, philo->data->time_to_eat, philo->data->start_time);
+	pthread_mutex_lock(&philo->meal_count_mutex);
+	philo->meal_count ++;
+	pthread_mutex_unlock(&philo->meal_count_mutex);
+	philo->last_meal_ts = get_ts() - philo->data->start_time;
 }
