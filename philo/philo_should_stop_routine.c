@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   should_i_stop.c                                    :+:      :+:    :+:   */
+/*   philo_should_stop_routine.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/31 18:39:08 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/26 16:55:39 by llethuil         ###   ########lyon.fr   */
+/*   Created: 2022/04/27 09:28:27 by llethuil          #+#    #+#             */
+/*   Updated: 2022/04/27 09:42:21 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 static int	am_i_alive(t_philo *philo);
 static int	am_i_full(t_philo *philo);
 
-int	should_i_stop(t_philo *philo)
+int	philo_should_stop_routine(t_philo *philo)
 {
-	while(philo->data->n_forks == 1)
+	while (philo->data->n_forks == 1)
 	{
 		usleep(philo->data->time_to_die);
 		if (am_i_alive(philo) == NO)

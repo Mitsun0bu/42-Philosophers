@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dinner_superviser.c                                :+:      :+:    :+:   */
+/*   philo_dinner_supervisor.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 09:53:03 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/26 14:13:09 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/04/27 09:18:34 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	does_somebody_died(t_data *data);
 static int	is_everyone_full(t_data *data);
 
-void	supervise_dinner(t_data *data)
+void	philo_dinner_supervisor(t_data *data)
 {
 	while (1)
 		if (does_somebody_died(data) == YES || is_everyone_full(data) == YES)

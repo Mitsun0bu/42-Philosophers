@@ -6,7 +6,7 @@
 #    By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 10:06:02 by llethuil          #+#    #+#              #
-#    Updated: 2022/04/26 21:39:33 by llethuil         ###   ########lyon.fr    #
+#    Updated: 2022/04/27 09:57:26 by llethuil         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,23 +35,21 @@ END			:=	\033[0m
 
 NAME		:=	philo
 
-INCS		:=	philo.h								\
+INCS		:=	philo.h
 
-SRCS		:=	am_i_an_odd_philo.c					\
-				clean_after_dinner.c				\
-				dinner_routine.c					\
-				main.c								\
-				philo_drop_forks.c					\
-				philo_eat.c							\
-				philo_sleep.c						\
-				philo_take_forks.c					\
-				philo_think.c						\
-				philo_dinner_manager.c				\
-				prepare_philos_for_dinner.c			\
-				should_i_stop.c						\
-				supervise_dinner.c					\
-				utils_global.c						\
-				utils_prepare_philos_for_dinner.c	\
+SRCS		:=	main.c						\
+				philo_actions_forks.c		\
+				philo_actions.c				\
+				philo_dinner_cleaner.c		\
+				philo_dinner_ender.c		\
+				philo_dinner_initializer.c	\
+				philo_dinner_launcher.c		\
+				philo_dinner_routine.c		\
+				philo_dinner_supervisor.c	\
+				philo_should_stop_routine.c	\
+				philo_waiting_line.c		\
+				utils_global.c				\
+				utils_initializer.c			\
 
 OBJS_LST		:=	$(SRCS:.c=.o)
 

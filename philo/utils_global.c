@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 15:12:19 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/26 16:52:53 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/04/27 09:51:24 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,37 +34,27 @@ void	ft_usleep(long time, int action_duration, long dinner_start)
 
 void	ft_print(t_philo *philo, int action)
 {
-	long time;
+	long	time;
 
 	time = get_ts() - philo->data->start_time;
 	pthread_mutex_lock(&philo->data->death_mutex);
 	if (philo->data->death_event == NO)
 	{
 		if (action == DIE)
-		{
 			printf("\033[0;35m[%lu\tms]\033[0m Philo #%d died !\n",
 				time, philo->id + 1);
-		}
 		else if (action == TAKE_FORK)
-		{
 			printf("\033[0;35m[%lu\tms]\033[0m Philo #%d has taken a fork !\n",
 				time, philo->id + 1);
-		}
 		else if (action == EAT)
-		{
 			printf("\033[0;35m[%lu\tms]\033[0m Philo #%d is eating !\n",
 				time, philo->id + 1);
-		}
 		else if (action == SLEEP)
-		{
 			printf("\033[0;36m[%lu\tms]\033[0m Philo #%d is sleeping !\n",
 				time, philo->id + 1);
-		}
 		else if (action == THINK)
-		{
 			printf("\033[0;32m[%lu\tms]\033[0m Philo #%d is thinking !\n",
 				time, philo->id + 1);
-		}
 	}
 	pthread_mutex_unlock(&philo->data->death_mutex);
 }

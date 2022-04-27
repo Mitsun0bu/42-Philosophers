@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dinner_initializer.c                               :+:      :+:    :+:   */
+/*   philo_dinner_initializer.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 19:37:44 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/26 13:38:41 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/04/27 09:09:19 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"philo.h"
 
 static int	check_args(int ac, char **av);
-static void	put_args_in_data(char **av, t_data *data);
-static int	init_rest_of_data_struct(t_data *data);
+static void	init_data_struct_args(char **av, t_data *data);
+static int	init_data_struct_var_and_mutex(t_data *data);
 static int	init_philos(t_data *data);
 
-int	prepare_philos_for_dinner(int ac, char **av, t_data *data)
+int	philo_dinner_initializer(int ac, char **av, t_data *data)
 {
 	if (check_args(ac, av) == FAILED)
 		return (FAILED);
-	put_args_in_data(av, data);
-	if (init_rest_of_data_struct(data) == FAILED)
+	init_data_struct_args(av, data);
+	if (init_data_struct_var_and_mutex(data) == FAILED)
 		return (FAILED);
 	if (init_philos(data) == FAILED)
 		return (FAILED);
@@ -40,7 +40,7 @@ static int	check_args(int ac, char **av)
 	return (0);
 }
 
-static void	put_args_in_data(char **av, t_data *data)
+static void	init_data_struct_args(char **av, t_data *data)
 {
 	data->n_philos = ft_atoi(av[1]);
 	data->n_forks = ft_atoi(av[1]);
@@ -53,7 +53,7 @@ static void	put_args_in_data(char **av, t_data *data)
 		data->n_time_must_eat = -1;
 }
 
-static int	init_rest_of_data_struct(t_data *data)
+static int	init_data_struct_var_and_mutex(t_data *data)
 {
 	int	i;
 

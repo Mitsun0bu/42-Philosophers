@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 19:16:08 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/26 16:41:24 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/04/27 09:36:35 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,13 @@ int	main(int ac, char **av)
 	t_data	data;
 
 	ft_memset(&data, 0, sizeof(data));
-	if (prepare_philos_for_dinner(ac, av, &data) == FAILED)
+	if (philo_dinner_initializer(ac, av, &data) == FAILED)
 		return (FAILED);
-	philo_dinner_manager(&data);
-	clean_after_dinner(&data);
+	if (philo_dinner_launcher(&data) == SUCCESS)
+	{
+		philo_dinner_supervisor(&data);
+		philo_dinner_ender(&data);
+	}
+	philo_dinner_cleaner(&data);
 	return (0);
 }

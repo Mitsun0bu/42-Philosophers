@@ -1,21 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   am_i_an_odd_philo.c                                :+:      :+:    :+:   */
+/*   philo_dinner_launcher.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/26 16:27:53 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/26 21:39:23 by llethuil         ###   ########lyon.fr   */
+/*   Created: 2022/04/27 09:11:27 by llethuil          #+#    #+#             */
+/*   Updated: 2022/04/27 09:41:19 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"philo.h"
 
-void	am_i_an_odd_philo(t_philo *philo)
+int	philo_dinner_launcher(t_data *data)
 {
-	if (philo->id % 2 == 0)
-		usleep(100);
-	else
-		return ;
+	int	i;
+
+	i = -1;
+	data->start_time = get_ts();
+	while (++i < data->n_philos)
+	{
+		if (pthread_create(&data->philos[i].thread, NULL,
+				&philo_dinner_routine, &data->philos[i]) != 0)
+		{
+			printf("Error : Creation of philo thread failed !\n");
+			return (FAILED);
+		}
+	}
+	return (SUCCESS);
 }
