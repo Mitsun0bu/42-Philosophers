@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 18:59:07 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/27 09:57:46 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/05/05 17:51:02 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ typedef struct s_data
 	int				time_to_sleep;
 	int				n_time_must_eat;
 	long			start_time;
-	int				death_event;
-	pthread_mutex_t	death_mutex;
+	int				stop_dinner;
+	pthread_mutex_t	stop_dinner_mutex;
 	int				*forks;
 	pthread_mutex_t	*forks_mutex;
 	struct s_philo	*philos;
@@ -87,6 +87,7 @@ typedef struct s_philo
 	int				meal_count;
 	pthread_mutex_t	meal_count_mutex;
 	long			last_meal_ts;
+	pthread_mutex_t	last_meal_mutex;
 	pthread_t		thread;
 	struct s_data	*data;
 }	t_philo;
@@ -99,10 +100,6 @@ typedef struct s_philo
 
 /*	main.c	*/
 int		main(int ac, char **av);
-
-/*	philo_actions_forks.c */
-int		philo_take_forks(t_philo *philo);
-void	philo_drop_forks(t_philo *philo);
 
 /*	philo_actions.c */
 void	philo_eat(t_philo *philo);
@@ -127,11 +124,14 @@ void	*philo_dinner_routine(void *arg);
 /* philo_dinner_supervisor.c */
 void	philo_dinner_supervisor(t_data *data);
 
+/*	philo_drop_forks.c */
+void	philo_drop_forks(t_philo *philo);
+
 /*	philo_should_stop_routine.c	*/
 int		philo_should_stop_routine(t_philo *philo);
 
-/* philo_waiting_line.c */
-void	philo_waiting_line(t_philo *philo);
+/*	philo_take_forks.c */
+int		philo_take_forks(t_philo *philo);
 
 /*	utils_global.c	*/
 void	*ft_memset(void *b, int c, size_t len);

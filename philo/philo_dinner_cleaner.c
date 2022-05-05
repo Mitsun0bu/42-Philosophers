@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_after_dinner.c                               :+:      :+:    :+:   */
+/*   philo_dinner_cleaner.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 18:30:26 by llethuil          #+#    #+#             */
-/*   Updated: 2022/04/27 09:19:42 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/05/05 18:10:08 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,12 @@ static void	destroy_mutex(t_data *data)
 
 	i = -1;
 	while (++i < data->n_philos)
+	{
 		pthread_mutex_destroy(&data->philos[i].meal_count_mutex);
+		pthread_mutex_destroy(&data->philos[i].last_meal_mutex);
+	}
 	while (++i < data->n_forks)
 		pthread_mutex_destroy(&data->forks_mutex[i]);
+	pthread_mutex_destroy(&data->stop_dinner_mutex);
 	return ;
 }

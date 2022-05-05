@@ -6,7 +6,7 @@
 #    By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 10:06:02 by llethuil          #+#    #+#              #
-#    Updated: 2022/04/27 09:57:26 by llethuil         ###   ########lyon.fr    #
+#    Updated: 2022/05/05 18:07:33 by llethuil         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,6 @@ NAME		:=	philo
 INCS		:=	philo.h
 
 SRCS		:=	main.c						\
-				philo_actions_forks.c		\
 				philo_actions.c				\
 				philo_dinner_cleaner.c		\
 				philo_dinner_ender.c		\
@@ -46,8 +45,9 @@ SRCS		:=	main.c						\
 				philo_dinner_launcher.c		\
 				philo_dinner_routine.c		\
 				philo_dinner_supervisor.c	\
+				philo_drop_forks.c			\
 				philo_should_stop_routine.c	\
-				philo_waiting_line.c		\
+				philo_take_forks.c			\
 				utils_global.c				\
 				utils_initializer.c			\
 
