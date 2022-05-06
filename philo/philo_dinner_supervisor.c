@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 09:53:03 by llethuil          #+#    #+#             */
-/*   Updated: 2022/05/05 17:28:58 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/05/06 09:34:10 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,15 @@ static int	is_everyone_full(t_data *data)
 	while (++i < data->n_philos)
 	{
 		pthread_mutex_lock(&data->philos[i].meal_count_mutex);
-		if (data->philos[i].meal_count == data->n_time_must_eat)
+		if (data->philos[i].meal_count != data->n_time_must_eat)
 		{
 			pthread_mutex_unlock(&data->philos[i].meal_count_mutex);
-			pthread_mutex_lock(&data->stop_dinner_mutex);
-			data->stop_dinner = YES;
-			pthread_mutex_unlock(&data->stop_dinner_mutex);
-			return (YES);
+			return (NO);
 		}
 		pthread_mutex_unlock(&data->philos[i].meal_count_mutex);
 	}
-	return (NO);
+	pthread_mutex_lock(&data->stop_dinner_mutex);
+	data->stop_dinner = YES;
+	pthread_mutex_unlock(&data->stop_dinner_mutex);
+	return (YES);
 }

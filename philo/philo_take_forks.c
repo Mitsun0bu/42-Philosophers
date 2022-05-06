@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 09:24:06 by llethuil          #+#    #+#             */
-/*   Updated: 2022/05/05 18:03:41 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/05/06 09:47:27 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	philo_take_forks(t_philo *philo)
 
 static int	philo_try_to_take_forks(t_philo *philo, int i_left, int i_right)
 {
+	pthread_mutex_unlock(&philo->meal_count_mutex);
 	pthread_mutex_lock(&philo->data->forks_mutex[i_left]);
 	pthread_mutex_lock(&philo->data->forks_mutex[i_right]);
 	if (philo->data->forks[i_left] == AVAILABLE

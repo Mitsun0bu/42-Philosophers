@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 09:41:36 by llethuil          #+#    #+#             */
-/*   Updated: 2022/05/05 18:23:10 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/05/06 10:09:46 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@ void	*philo_dinner_routine(void *arg)
 	while (1)
 	{
 		philo_think(philo);
-		printf("philo #%d : THERE\n", philo->id + 1);
-		if (philo_should_stop_routine(philo) == YES)
-			break ;
 		if (philo_take_forks(philo) == FAILED)
 			break ;
 		philo_eat(philo);
