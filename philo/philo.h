@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 18:59:07 by llethuil          #+#    #+#             */
-/*   Updated: 2022/05/05 17:51:02 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/05/11 09:56:33 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,14 +124,12 @@ void	*philo_dinner_routine(void *arg);
 /* philo_dinner_supervisor.c */
 void	philo_dinner_supervisor(t_data *data);
 
-/*	philo_drop_forks.c */
+/*	philo_forks_actions.c */
+int		philo_take_forks(t_philo *philo);
 void	philo_drop_forks(t_philo *philo);
 
 /*	philo_should_stop_routine.c	*/
 int		philo_should_stop_routine(t_philo *philo);
-
-/*	philo_take_forks.c */
-int		philo_take_forks(t_philo *philo);
 
 /*	utils_global.c	*/
 void	*ft_memset(void *b, int c, size_t len);
