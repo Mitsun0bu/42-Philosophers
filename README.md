@@ -3,8 +3,7 @@
 ~~~ INTRO ~~~
 
 This program has been made for the "philosophers" 42 School project (2021).  
-The goal of this project was to create a program where philosopher(s) alternatively eat, think, or sleep. While they are eating, they are not thinking nor sleeping; while thinking, they are not eating nor sleeping;
-and, of course, while sleeping, they are not eating nor thinking. Every philosopher needs to eat and should never starve.
+The goal of this project was to create a program where philosopher(s) alternatively eat, think, or sleep. Every philosopher needs to eat and should never starve.
 
 ~~~ TO RUN THE PROGRAM ~~~
 
