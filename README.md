@@ -1,4 +1,4 @@
-# philosophers
+# 42-Philosophers
 
 ~~~ INTRO ~~~
 
